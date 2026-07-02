@@ -9,7 +9,7 @@ A atividade é sobre o problema do Caminho Mais Longo: num grafo com pesos nas a
 O trabalho tem duas partes:
 
 - **Parte A (teoria):** provar que o problema é NP-Difícil, usando uma redução do Caminho Hamiltoniano.
-- **Parte B (experimentos):** implementar duas soluções e comparar na prática — uma exata (backtracking) e uma gulosa — olhando tempo de execução e qualidade do resultado.
+- **Parte B (experimentos):** implementar duas soluções e comparar na prática uma exata (backtracking) e uma gulosa, olhando tempo de execução e qualidade do resultado.
 
 ## As duas soluções
 
@@ -18,9 +18,9 @@ O trabalho tem duas partes:
 
 ## Organização das pastas
 
-- `src/` — o código (`caminho_mais_longo.py`)
-- `imagens/` — os gráficos gerados pelos experimentos
-- `Documentos/` — o relatório completo com as duas partes (em Markdown, e uma versão HTML pronta pra abrir no navegador e salvar em PDF com Ctrl+P)
+- `src/` - o código (`caminho_mais_longo.py`)
+- `imagens/` - os gráficos gerados pelos experimentos
+- `Documentos/` - o relatório completo
 
 ## Rodando o código
 
@@ -43,6 +43,6 @@ Isso roda os testes para n = 5, 8, 10, 12 e 15, mostra os resultados no terminal
 | 12 | 960        | 726         | 24,4%                  |
 | 15 | não terminou | 1192      | -                      |
 
-Resumindo: a partir de n=12 a solução exata já demora uns 10 segundos, e em n=15 ela não termina (tive que cortar em 20 segundos). O guloso resolve tudo em microssegundos, só que a qualidade varia demais — em alguns casos ficou quase 76% pior que o ótimo. A explicação de por que isso acontece está no relatório.
+Resumindo: a partir de n=12 a solução exata já demora uns 8 segundos, e em n=15 ela não termina (tive que cortar em 20 segundos). O guloso resolve tudo em microssegundos, só que a qualidade varia demais, em alguns casos ficou quase 76% pior que o ótimo. A explicação de por que isso acontece está no relatório.
 
 Obs.: a semente do sorteio está fixa (`random.seed(42)`), então os pesos dão sempre iguais. Só os tempos que mudam de um computador pro outro.
