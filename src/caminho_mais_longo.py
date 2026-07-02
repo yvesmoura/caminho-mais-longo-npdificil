@@ -136,9 +136,9 @@ def gerar_grafico_tempo(resultados, pasta_img):
     ns = [r["n"] for r in resultados]
     plt.figure(figsize=(7, 4.2))
     plt.plot(ns, [r["tempo_ex"] for r in resultados], "o-",
-             color="black", label="Exato (Backtracking)")
+             label="Exato (Backtracking)")
     plt.plot(ns, [r["tempo_gu"] for r in resultados], "s--",
-             color="gray", label="Guloso")
+             label="Guloso")
     for r in resultados:
         if r["timeout"]:
             plt.scatter([r["n"]], [r["tempo_ex"]], color="red", marker="x",
@@ -161,9 +161,9 @@ def gerar_grafico_qualidade(resultados, pasta_img):
     x = range(len(ns))
     plt.figure(figsize=(7, 4.2))
     plt.bar([i - 0.2 for i in x], [r["peso_ex"] or 0 for r in resultados],
-            width=0.4, color="black", label="Otimo (Exato)")
+            width=0.4, color="tab:blue", label="Otimo (Exato)")
     plt.bar([i + 0.2 for i in x], [r["peso_gu"] or 0 for r in resultados],
-            width=0.4, color="gray", label="Guloso")
+            width=0.4, color="tab:orange", label="Guloso")
     plt.xticks(list(x), ns)
     plt.xlabel("Numero de vertices (n)")
     plt.ylabel("Peso total do caminho")

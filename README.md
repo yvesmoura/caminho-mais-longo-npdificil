@@ -20,7 +20,7 @@ O trabalho tem duas partes:
 
 - `src/` — o código (`caminho_mais_longo.py`)
 - `imagens/` — os gráficos gerados pelos experimentos
-- `Documentos/` — o relatório completo em PDF, com as duas partes
+- `Documentos/` — o relatório completo com as duas partes (em Markdown, e uma versão HTML pronta pra abrir no navegador e salvar em PDF com Ctrl+P)
 
 ## Rodando o código
 
