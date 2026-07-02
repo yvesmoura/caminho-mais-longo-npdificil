@@ -13,7 +13,7 @@
 
 ## Parte A - Complexidade e Redução Polinomial
 
-O objetivo aqui é mostrar que o Caminho Mais Longo é NP-Difícil. Pra isso trabalhamos com a versão de decisão do problema e construímos uma redução polinomial a partir do Caminho Hamiltoniano, que já se sabe ser NP-Completo. Usamos a definição de redução vista em aula. Basicamente, precisamos de uma função que pegue qualquer instância do Hamiltoniano e produza, em tempo polinomial, uma instância do Caminho Mais Longo, de um jeito que a resposta de uma seja SIM se, e somente se, a resposta da outra também for. É a relação que o enunciado escreve como `Caminho Hamiltoniano <=p Caminho Mais Longo`.
+O objetivo aqui é mostrar que o Caminho Mais Longo é NP-Difícil. Para isso trabalhamos com a versão de decisão do problema e construímos uma redução polinomial a partir do Caminho Hamiltoniano, que já se sabe ser NP-Completo. Usamos a definição de redução vista em aula. Basicamente, precisamos de uma função que pegue qualquer instância do Hamiltoniano e produza, em tempo polinomial, uma instância do Caminho Mais Longo, de um jeito que a resposta de uma seja SIM se, e somente se, a resposta da outra também for. É a relação que o enunciado escreve como `Caminho Hamiltoniano <=p Caminho Mais Longo`.
 
 > **Caminho Mais Longo (decisão).** Dados `G=(V,E)` não direcionado com pesos `w(u,v)>0`, vértices `S` e `D` e um inteiro `k`, existe caminho simples de `S` a `D` com soma de pesos maior ou igual a `k`?
 
@@ -21,7 +21,7 @@ O objetivo aqui é mostrar que o Caminho Mais Longo é NP-Difícil. Pra isso tra
 
 ### Construção da redução (transformação da entrada)
 
-A primeira dificuldade apareceu antes mesmo da prova. O Caminho Hamiltoniano não diz onde o caminho começa nem onde termina, e o Caminho Mais Longo precisa de uma origem `S` e um destino `D` fixos. A saída que encontramos foi criar dois vértices artificiais pra cumprir esse papel, que no fundo são o hotel e a praça da historinha do enunciado.
+A primeira dificuldade apareceu antes mesmo da prova. O Caminho Hamiltoniano não diz onde o caminho começa nem onde termina, e o Caminho Mais Longo precisa de uma origem `S` e um destino `D` fixos. A saída que encontramos foi criar dois vértices artificiais para cumprir essa função, que no fundo são o hotel e a praça da história do enunciado.
 
 Seja `G=(V,E)` uma instância qualquer do Caminho Hamiltoniano, com `n=|V|`. A partir dela montamos uma única instância `(G', S, D, k)` do Caminho Mais Longo assim:
 
@@ -35,19 +35,19 @@ Isso tudo é barato de construir. São só 2 vértices e `2n` arestas a mais, fo
 
 ### Equivalência das respostas
 
-**Ida.** Suponha que `G` tem um caminho hamiltoniano `v1, ..., vn`. Basta colar `s*` numa ponta e `d*` na outra que aparece o caminho `s*, v1, ..., vn, d*` em `G'`, e ele é simples. As duas arestas novas existem porque `s*` e `d*` são vizinhos de todo mundo em `V`, e o pedaço do meio já existia em `G`. São `n+1` arestas no total, cada uma pesando 1, o que dá soma exatamente `n+1 = k`. O Caminho Mais Longo responde "sim".
+**Ida.** Suponha que `G` tem um caminho hamiltoniano `v1, ..., vn`. Basta encaixar `s*` numa ponta e `d*` na outra que aparece o caminho `s*, v1, ..., vn, d*` em `G'`, e ele é simples. As duas arestas novas existem porque `s*` e `d*` são vizinhos de todos os vértices de `V`, e o trecho do meio já existia em `G`. São `n+1` arestas no total, cada uma pesando 1, o que dá soma exatamente `n+1 = k`. O Caminho Mais Longo responde "sim".
 
 **Volta.** Agora suponha que existe um caminho simples de `s*` a `d*` em `G'` com soma maior ou igual a `n+1`. Toda aresta vale 1, então esse caminho usa pelo menos `n+1` arestas, isto é, pelo menos `n+2` vértices. Acontece que `G'` tem exatamente `n+2` vértices, e caminho simples não repete vértice nenhum. Conclusão, o caminho é obrigado a passar por todos, com `s*` e `d*` nas pontas e os `n` vértices de `V` no meio, em alguma ordem `v1, ..., vn`. E os pares consecutivos desse miolo só podem estar ligados por arestas que já eram de `G`, porque as arestas que criamos encostam sempre em `s*` ou em `d*`. Ou seja, `v1, ..., vn` é um caminho hamiltoniano em `G`, e o Hamiltoniano também responde "sim".
 
-Com a transformação polinomial e a resposta preservada nos dois sentidos, o Caminho Hamiltoniano se reduz polinomialmente ao Caminho Mais Longo. E como o Hamiltoniano é NP-Completo, o Caminho Mais Longo é **NP-Difícil**. Dito de outro jeito, um algoritmo polinomial pra ele resolveria o Hamiltoniano também, era só aplicar a transformação antes. Aproveitamos pra registrar mais uma observação. Se alguém entrega um caminho candidato como certificado, dá pra conferir em tempo linear se ele é simples, se sai de `S`, chega em `D` e soma pelo menos `k`. Então a versão de decisão também está em NP e, juntando os dois fatos, ela é NP-Completa.
+Com a transformação polinomial e a resposta preservada nos dois sentidos, o Caminho Hamiltoniano se reduz polinomialmente ao Caminho Mais Longo. E como o Hamiltoniano é NP-Completo, o Caminho Mais Longo é **NP-Difícil**. Dito de outro jeito, um algoritmo polinomial para ele resolveria o Hamiltoniano também, era só aplicar a transformação antes. Aproveitamos para registrar mais uma observação. Dado um caminho candidato como certificado, dá para conferir em tempo linear se ele é simples, se sai de `S`, chega em `D` e soma pelo menos `k`. Então a versão de decisão também está em NP e, juntando os dois fatos, ela é NP-Completa.
 
-Uma pergunta que fica é por que o Caminho Mais Curto é fácil e esse aqui não. A diferença está na subestrutura ótima. No caminho mínimo, qualquer pedaço de um caminho ótimo também é ótimo, e o Dijkstra se apoia exatamente nisso pra montar a solução aos poucos. No mais longo simples essa propriedade quebra. Como não pode repetir vértice, cada escolha interfere nas seguintes, e uma decisão que parece boa agora pode estragar o resto da rota. No fim, é daí que vem a dificuldade toda.
+Uma pergunta que fica é por que o Caminho Mais Curto é fácil e o Mais Longo não. A diferença está na subestrutura ótima, aquela propriedade de que qualquer pedaço de um caminho mínimo também é mínimo, que é justamente o que o Dijkstra explora para montar a solução aos poucos. No mais longo simples ela quebra. Como não pode repetir vértice, cada escolha interfere nas seguintes, e uma decisão que parece boa agora pode estragar o resto da rota. É daí que vem a dificuldade.
 
 ---
 
 ## Parte B - Implementação e Experimentos
 
-As duas abordagens foram implementadas em Python, sempre sobre grafos completos com pesos inteiros sorteados entre 1 e 100. Fixamos a semente do gerador (`random.seed(42)`) pra qualquer um conseguir repetir o experimento e chegar nos mesmos números. A origem é sempre o vértice 0 e o destino é o vértice `n-1`. Os tempos abaixo saíram de um desktop com Ryzen 5 3500X e 16 GB de RAM, com Python 3.13 rodando no WSL2 (Ubuntu).
+As duas abordagens foram implementadas em Python, sempre sobre grafos completos com pesos inteiros sorteados entre 1 e 100. Fixamos a semente do gerador (`random.seed(42)`) para qualquer um conseguir repetir o experimento e chegar nos mesmos números. A origem é sempre o vértice 0 e o destino é o vértice `n-1`. Os tempos abaixo saíram de um desktop com Ryzen 5 3500X e 16 GB de RAM, com Python 3.13 rodando no WSL2 (Ubuntu).
 
 ### Solução exata (backtracking)
 
@@ -132,7 +132,7 @@ O resto do código, com a geração dos grafos aleatórios, o laço dos experime
 
 O gráfico usa escala logarítmica no eixo do tempo. Mesmo assim a curva do exato sobe quase como uma reta, sinal de crescimento explosivo, o que bate com a teoria, afinal num grafo completo o número de caminhos entre `S` e `D` é da ordem de `(n-2)!`. A linha do guloso, em comparação, mal sai do zero.
 
-E onde a força bruta deixa de valer a pena? No nosso computador, `n=12` já custou quase 8 segundos. Em `n=15` desistimos, a execução passou do limite de 20 segundos e foi interrompida. Ou seja, em algum ponto entre 12 e 15 vértices o método exato vira inviável na prática. O guloso, pra efeito de comparação, resolve o mesmo `n=15` em microssegundos.
+E onde a força bruta deixa de ser viável? No nosso computador, `n=12` já custou quase 8 segundos, e em `n=15` a execução passou do limite de 20 segundos e precisou ser interrompida. Em algum ponto entre 12 e 15 vértices, portanto, o método exato se torna impraticável. O guloso, para efeito de comparação, resolve o mesmo `n=15` em microssegundos.
 
 ### Qualidade da solução
 
@@ -146,16 +146,16 @@ E onde a força bruta deixa de valer a pena? No nosso computador, `n=12` já cus
 
 ![Qualidade da solução (peso ótimo vs. guloso)](../imagens/grafico_qualidade.png)
 
-Nos casos em que a força bruta terminou, a distância do guloso pro ótimo variou de 9% a 76%, sem padrão nenhum. Os piores cenários foram `n=5` e `n=10`. Neles a aresta mais pesada saindo da origem levava praticamente direto pro destino, o guloso mordeu a isca e o passeio acabou curtíssimo, ignorando quase o grafo inteiro.
+Nos casos em que a força bruta terminou, a distância do guloso para o ótimo variou de 9% a 76%, sem padrão nenhum. Os piores cenários foram `n=5` e `n=10`. Neles a aresta mais pesada saindo da origem levava praticamente direto ao destino, o guloso acabou escolhendo justamente esse caminho e o passeio terminou curtíssimo, cobrindo só uma pequena parte do grafo.
 
-O `n=10` é o exemplo perfeito. O backtracking achou `0 -> 1 -> 7 -> 8 -> 4 -> 5 -> 6 -> 3 -> 2 -> 9`, um caminho que visita os 10 vértices e soma 747. O guloso saiu do 0, pulou pro vértice 7 por causa da aresta mais pesada e do 7 caiu direto no destino 9. Ficou no `0 -> 7 -> 9`, peso 180. Terminou cedo demais e jogou fora quase todo o grafo.
+O caso `n=10` ilustra bem esse comportamento. O backtracking achou `0 -> 1 -> 7 -> 8 -> 4 -> 5 -> 6 -> 3 -> 2 -> 9`, um caminho que visita os 10 vértices e soma 747. O guloso saiu do 0, foi para o vértice 7 por causa da aresta mais pesada e do 7 seguiu diretamente para o destino 9, ficando no `0 -> 7 -> 9`, de peso 180. Terminou cedo demais e deixou de explorar quase todo o grafo.
 
-E por que o guloso erra tanto? O objetivo é maximizar a soma de um caminho sem repetir vértice. Escolher sempre a maior aresta do momento tem dois efeitos colaterais. Pode levar cedo demais ao destino, encerrando um caminho curto, e pode gastar um vértice que faria muita falta numa rota maior lá na frente. Sem nunca voltar atrás, o algoritmo fica preso nesse ótimo local. Na prática, o problema não tem a propriedade de escolha gulosa que sustenta esse tipo de heurística em outros contextos, o que era de se esperar de um problema NP-Difícil.
+E por que o guloso erra tanto? O objetivo é maximizar a soma de um caminho sem repetir vértice. Escolher sempre a maior aresta do momento tem dois efeitos colaterais. Pode levar cedo demais ao destino, encerrando um caminho curto, e pode gastar um vértice que faria muita falta numa rota maior mais adiante. Sem nunca voltar atrás, o algoritmo fica preso nesse ótimo local. Na prática, o problema não tem a propriedade de escolha gulosa que sustenta esse tipo de heurística em outros contextos, o que era de se esperar de um problema NP-Difícil.
 
 ### Resumindo o trade-off
 
 - **Exato:** garante o melhor caminho sempre, só que o custo cresce na casa de `(n-2)!` e, em grafos completos, já fica inviável entre `n=12` e `15`.
-- **Guloso:** roda em `O(n²)` no pior caso e devolve alguma rota quase de graça, mas sem garantia nenhuma de qualidade. Pode errar feio e às vezes nem chega no destino.
+- **Guloso:** roda em `O(n²)` no pior caso e devolve alguma rota com custo quase nulo, mas sem nenhuma garantia de qualidade. Pode errar bastante e às vezes nem chega ao destino.
 
 ---
 
