@@ -14,13 +14,13 @@ O trabalho tem duas partes:
 ## As duas soluções
 
 - **Exata (backtracking):** um DFS que testa todos os caminhos simples de S até D e guarda o de maior peso. Acha sempre a resposta certa, mas o tempo explode rápido porque num grafo completo o número de caminhos é da ordem de (n-2)!.
-- **Gulosa:** sempre vai pro vizinho ainda não visitado ligado pela maior aresta. É rápida (O(n²)), mas não garante o melhor caminho e às vezes nem chega no destino.
+- **Gulosa:** sempre vai para o vizinho ainda não visitado ligado pela maior aresta. É rápida (O(n²)), mas não garante o melhor caminho e às vezes nem chega no destino.
 
 ## Organização das pastas
 
 - `src/` - o código (`caminho_mais_longo.py`)
 - `imagens/` - os gráficos gerados pelos experimentos
-- `Documentos/` - o relatório completo
+- `Documentos/` - o relatório completo em PDF
 
 ## Rodando o código
 
@@ -43,6 +43,6 @@ Isso roda os testes para n = 5, 8, 10, 12 e 15, mostra os resultados no terminal
 | 12 | 960        | 726         | 24,4%                  |
 | 15 | não terminou | 1192      | -                      |
 
-Resumindo: a partir de n=12 a solução exata já demora uns 8 segundos, e em n=15 ela não termina (tive que cortar em 20 segundos). O guloso resolve tudo em microssegundos, só que a qualidade varia demais, em alguns casos ficou quase 76% pior que o ótimo. A explicação de por que isso acontece está no relatório.
+A partir de n=12 a solução exata já demora uns 8 segundos, e em n=15 ela não termina (tive que cortar em 20 segundos). Enquanto isso o guloso resolve tudo em microssegundos, só que a qualidade varia bastante, em alguns casos ficou quase 76% pior que o ótimo. O porquê disso está explicado no relatório.
 
-Obs.: a semente do sorteio está fixa (`random.seed(42)`), então os pesos dão sempre iguais. Só os tempos que mudam de um computador pro outro.
+Obs.: a semente do sorteio está fixa (`random.seed(42)`), então os pesos dão sempre iguais. Só os tempos mudam de um computador para outro.
